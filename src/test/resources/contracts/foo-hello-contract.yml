@@ -1,0 +1,11 @@
+description: Should say Hello
+name: Foo-Get Hello
+request:
+  url: /foos/hello
+  queryParameters:
+    name: "World"
+  method: GET
+response:
+  status: 200
+  body:
+    "Hello World!"
