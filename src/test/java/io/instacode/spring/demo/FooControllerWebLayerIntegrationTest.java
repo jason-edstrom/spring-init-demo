@@ -9,17 +9,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest
-public class FooControllerWebLayerIntegrationTest extends SpringBootBaseTest {
+//@WebMvcTest
+//public class FooControllerWebLayerIntegrationTest extends SpringBootBaseTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  /*@Autowired
+  private MockMvc mockMvc;*/
 
   //@MockBean
   //private IFooService iFooService;
 
-  @Test
+/*  @Test
   public void whenTestMvcController_ThenRetrieveExpectedResult() throws Exception{
     this.mockMvc.perform(get("/foos")).andExpect(status().isOk());
-  }
-}
+  }*/
+//}

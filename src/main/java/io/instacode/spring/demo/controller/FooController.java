@@ -26,22 +26,27 @@ public class FooController {
   //@Autowired
   //private IFooService iFooService;
 
-  /*@GetMapping
-  public List<Foo> findAll() {
-    return iFooService.findAll();
+//  @GetMapping
+//  public List<Foo> findAll() {
+//    return iFooService.findAll();
+//  }
+  @GetMapping("")
+  @ResponseStatus(HttpStatus.OK)
+  public String root(){
+    return "";
   }
 
-  @GetMapping("/{id}")
-  public Foo findById(@PathVariable("id") Long id) {
-    return RestPreconditions.checkFound(iFooService.findById(id).get());
-  }
+//  @GetMapping("/{id}")
+//  public Foo findById(@PathVariable("id") Long id) {
+//    return RestPreconditions.checkFound(iFooService.findById(id).get());
+//  }
 
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  public Long create(@RequestBody Foo resource) {
-    Preconditions.checkNotNull(resource);
-    return iFooService.create(resource);
-  }
+//  @PostMapping
+//  @ResponseStatus(HttpStatus.CREATED)
+//  public Long create(@RequestBody Foo resource) {
+//    Preconditions.checkNotNull(resource);
+//    return iFooService.create(resource);
+//  }
 
 //  @PutMapping(value = "/{id}")
 //  @ResponseStatus(HttpStatus.OK)
@@ -51,11 +56,11 @@ public class FooController {
 //    iFooService.update(resource);
 //  }
 
-  @DeleteMapping(value = "/{id}")
-  @ResponseStatus(HttpStatus.OK)
-  public void delete(@PathVariable("id") Long id) {
-    iFooService.deleteById(id);
-  }*/
+//  @DeleteMapping(value = "/{id}")
+//  @ResponseStatus(HttpStatus.OK)
+//  public void delete(@PathVariable("id") Long id) {
+//    iFooService.deleteById(id);
+//  }
 
   @GetMapping("/hello")
   public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
