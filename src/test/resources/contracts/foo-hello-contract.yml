@@ -1,7 +1,7 @@
 description: Should say Hello
 name: Foo-Get Hello
 request:
-  url: /foos/hello
+  url: /api/foo/hello
   queryParameters:
     name: "World"
   method: GET

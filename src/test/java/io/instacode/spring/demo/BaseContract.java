@@ -1,5 +1,6 @@
 package io.instacode.spring.demo;
 
+//import io.instacode.spring.demo.controller.FooController;
 import io.instacode.spring.demo.controller.FooController;
 import io.restassured.RestAssured;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -11,11 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
-/**
- * @author Marcin Grzejszczak
- */
 @SpringBootTest(classes = BaseContract.Config.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-//@ExtendWith(SpringExtension.class)
 public abstract class BaseContract extends SpringBootBaseTest{
 
 	@Value("${APPLICATION_BASE_URL}")

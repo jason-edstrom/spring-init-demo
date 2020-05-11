@@ -1,12 +1,13 @@
 package io.instacode.spring.demo.controller;
 
-import com.google.common.base.Preconditions;
-import io.instacode.spring.demo.model.Foo;
-//import io.instacode.spring.demo.service.IFooService;
-import io.instacode.spring.demo.utility.RestPreconditions;
+import io.instacode.spring.demo.dto.FooDTO;
+import io.instacode.spring.demo.service.FooService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,51 +20,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("/api/foo")
 @RestController
-@RequestMapping("/foos")
+@Api(tags = "Foo API")
 public class FooController {
 
-  //@Autowired
-  //private IFooService iFooService;
+	private final FooService fooService;
 
-//  @GetMapping
-//  public List<Foo> findAll() {
-//    return iFooService.findAll();
-//  }
-  @GetMapping("")
-  @ResponseStatus(HttpStatus.OK)
-  public String root(){
-    return "";
-  }
+	public FooController(FooService fooService) {
+		this.fooService = fooService;
+	}
 
-//  @GetMapping("/{id}")
-//  public Foo findById(@PathVariable("id") Long id) {
-//    return RestPreconditions.checkFound(iFooService.findById(id).get());
-//  }
+	@ApiOperation("Add new data")
+	@PostMapping("/save")
+	public void save(@RequestBody FooDTO foo) {
+		fooService.save(foo);
+	}
 
-//  @PostMapping
-//  @ResponseStatus(HttpStatus.CREATED)
-//  public Long create(@RequestBody Foo resource) {
-//    Preconditions.checkNotNull(resource);
-//    return iFooService.create(resource);
-//  }
+	@ApiOperation("Delete based on primary key")
+	@GetMapping("/{id}")
+	public FooDTO findById(@PathVariable("id") Long id) {
+		Optional<FooDTO> dtoOptional = fooService.findById(id);
+		return dtoOptional.orElse(null);
+	}
 
-//  @PutMapping(value = "/{id}")
-//  @ResponseStatus(HttpStatus.OK)
-//  public void update(@PathVariable("id") Long id, @RequestBody Foo resource) {
-//    Preconditions.checkNotNull(resource);
-//    RestPreconditions.checkNotNull(iFooService.getById(resource.getId()));
-//    iFooService.update(resource);
-//  }
+	@ApiOperation("Find by Id")
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		fooService.deleteById(id);
+	}
 
-//  @DeleteMapping(value = "/{id}")
-//  @ResponseStatus(HttpStatus.OK)
-//  public void delete(@PathVariable("id") Long id) {
-//    iFooService.deleteById(id);
-//  }
+	@ApiOperation("Find all data")
+	@GetMapping("/list")
+	public List<FooDTO> list() {
+		return fooService.findAll();
+	}
 
-  @GetMapping("/hello")
-  public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-    return String.format("Hello %s!", name);
-  }
+	@ApiOperation("Pagination request")
+	@GetMapping("/page-query")
+	public Page<FooDTO> pageQuery(Pageable pageable) {
+		return fooService.findAll(pageable);
+	}
+
+	@ApiOperation("Update one data")
+	@PutMapping("/update/{id}")
+	public FooDTO update(@RequestBody FooDTO dto) {
+		return fooService.updateById(dto);
+	}
+
+	@GetMapping("/hello")
+	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return String.format("Hello %s!", name);
+	}
+	@GetMapping("")
+	@ResponseStatus(HttpStatus.OK)
+	public String root(){
+		return "";
+	}
 }
